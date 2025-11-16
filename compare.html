@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Colleges - CollegeFinder</title>
+    <meta name="description" content="Compare top colleges side by side">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🎓</div>
+                    <span class="logo-text">CollegeFinder</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="compare.html" class="nav-link active">⚖️ Compare</a>
+                    <a href="login.html" class="btn btn-outline">🔑 Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Compare Section -->
+    <div class="compare-container">
+        <div class="container">
+            <div class="compare-header">
+                <h1>⚖️ Compare Colleges</h1>
+                <p>Select up to 3 colleges to compare their features side by side</p>
+            </div>
+
+            <!-- College Selection -->
+            <div class="college-selection">
+                <div class="selection-card">
+                    <h3>College 1</h3>
+                    <select id="college1" class="college-select">
+                        <option value="">Select College</option>
+                    </select>
+                    <button class="btn-remove" id="remove1" style="display: none;">Remove ✕</button>
+                </div>
+                <div class="selection-card">
+                    <h3>College 2</h3>
+                    <select id="college2" class="college-select">
+                        <option value="">Select College</option>
+                    </select>
+                    <button class="btn-remove" id="remove2" style="display: none;">Remove ✕</button>
+                </div>
+                <div class="selection-card">
+                    <h3>College 3</h3>
+                    <select id="college3" class="college-select">
+                        <option value="">Select College</option>
+                    </select>
+                    <button class="btn-remove" id="remove3" style="display: none;">Remove ✕</button>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div id="comparisonTable" class="comparison-table" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th id="header1"></th>
+                            <th id="header2"></th>
+                            <th id="header3"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparisonBody">
+                        <!-- Comparison rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="noComparison" class="no-comparison">
+                <p>Please select at least 2 colleges to compare</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="compare.js"></script>
+</body>
+</html>

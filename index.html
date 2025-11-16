@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollegeFinder - Find Your Perfect College in India</title>
+    <meta name="description" content="Search and compare top colleges across India. Find detailed information on fees, courses, placements, rankings, and facilities.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🎓</div>
+                    <span class="logo-text">CollegeFinder</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="compare.html" class="nav-link">⚖️ Compare</a>
+                    <a href="login.html" class="btn btn-outline">🔑 Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Find Your Perfect College</h1>
+                <p class="hero-subtitle">Search from top colleges across India. Compare fees, placements, rankings and more.</p>
+                
+                <!-- Search & Filters -->
+                <div class="search-filters">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" placeholder="Search colleges by name, location...">
+                    </div>
+                    
+                    <div class="filters-grid">
+                        <select id="feeFilter" class="filter-select">
+                            <option value="all">All Fees</option>
+                            <option value="0-100000">Under ₹1 Lakh</option>
+                            <option value="100000-300000">₹1L - ₹3L</option>
+                            <option value="300000-500000">₹3L - ₹5L</option>
+                            <option value="500000+">Above ₹5L</option>
+                        </select>
+                        
+                        <select id="stateFilter" class="filter-select">
+                            <option value="all">All States</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                        
+                        <select id="courseFilter" class="filter-select">
+                            <option value="all">All Courses</option>
+                            <option value="B.Tech">B.Tech</option>
+                            <option value="M.Tech">M.Tech</option>
+                            <option value="MBA">MBA</option>
+                            <option value="BA">BA</option>
+                            <option value="BSc">BSc</option>
+                        </select>
+                        
+                        <select id="rankFilter" class="filter-select">
+                            <option value="all">All Rankings</option>
+                            <option value="1-5">Top 5</option>
+                            <option value="6-10">6-10</option>
+                            <option value="11-20">11-20</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results">
+        <div class="container">
+            <div class="results-header">
+                <h2 id="resultsCount">Loading colleges...</h2>
+            </div>
+            <div id="collegeGrid" class="college-grid">
+                <!-- College cards will be inserted here by JavaScript -->
+            </div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <p>No colleges found matching your criteria. Try adjusting your filters.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
