@@ -6,34 +6,194 @@
     <title>CollegeFinder - Find Your Perfect College in India</title>
     <meta name="description" content="Search and compare top colleges across India. Find detailed information on fees, courses, placements, rankings, and facilities.">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="profile-component.css">
+    <link rel="stylesheet" href="chatbot.css">
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+    
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="container">
+        <div class="nav-container">
+        <div class="nav-container">
             <div class="nav-content">
                 <a href="index.html" class="logo">
                     <div class="logo-icon">🎓</div>
                     <span class="logo-text">CollegeFinder</span>
                 </a>
+                
+                <!-- Search Bar -->
+                <div class="nav-search">
+                    <input type="text" class="search-input" placeholder="Search colleges...">
+                    <button class="search-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor"/>
+                            <path d="M21 21l-4.35-4.35" stroke="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+                
                 <div class="nav-links">
                     <a href="index.html" class="nav-link active">Home</a>
-                    <a href="compare.html" class="nav-link">⚖️ Compare</a>
-                    <a href="login.html" class="btn btn-outline">🔑 Login</a>
+                    <a href="smart-match.html" class="nav-link">Smart Match</a>
+                    <a href="analytics.html" class="nav-link">Analytics</a>
+                    <a href="live-updates.html" class="nav-link">⚡ Live Updates</a>
+                    <a href="compare.html" class="nav-link">Compare</a>
+                    <a href="cutoff-predictor.html" class="nav-link">Cutoff Predictor</a>
                 </div>
+                
+                <!-- Notification Button -->
+                <button class="notification-btn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M18 8A6 6 0 106 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor"/>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <!-- Auth Buttons / Profile -->
+                <div class="nav-auth" id="navAuth">
+                    <a href="login.html" class="btn-login">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span>Login</span>
+                    </a>
+                    <a href="signup.html" class="btn-signup">Sign Up</a>
+                </div>
+                
+                <!-- Profile Dropdown (Hidden by default) -->
+                <div class="profile-container" id="profileContainer" style="display: none;">
+                    <button class="profile-trigger">
+                        <div class="profile-avatar">
+                            <img src="" alt="Profile" id="profileAvatar" style="display: none;">
+                            <div class="avatar-placeholder" id="avatarPlaceholder">
+                                <span id="avatarInitials">U</span>
+                            </div>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="profile-info">
+                            <span class="profile-name" id="profileName">User</span>
+                            <svg viewBox="0 0 24 24" fill="none" class="dropdown-arrow">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </button>
+                    
+                    <div class="profile-dropdown">
+                        <div class="dropdown-header">
+                            <div class="user-avatar-large">
+                                <img src="" alt="Profile" id="dropdownAvatar" style="display: none;">
+                                <div class="avatar-placeholder-large" id="avatarPlaceholderLarge">
+                                    <span id="avatarInitialsLarge">U</span>
+                                </div>
+                            </div>
+                            <div class="user-details">
+                                <h4 id="dropdownName">User Name</h4>
+                                <p id="dropdownEmail">user@example.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M17 21v-8H7v8M7 3v5h8" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Saved Colleges</span>
+                                <span class="badge">5</span>
+                            </a>
+                            <a href="cutoff-predictor.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>My Predictions</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Settings</span>
+                            </a>
+                            <a href="live-updates.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M18 8A6 6 0 106 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Notifications</span>
+                                <span class="badge danger">3</span>
+                            </a>
+                        </div>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <div class="dropdown-footer">
+                            <button class="dropdown-item logout-btn" id="logoutBtn">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
+    
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay"></div>
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Background Slider -->
+        <div class="hero-slider">
+            <div class="slider-track">
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?w=1200');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200');"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1200');"></div>
+            </div>
+            <div class="slider-overlay"></div>
+        </div>
+        
         <div class="container">
             <div class="hero-content">
-                <h1>Find Your Perfect College</h1>
-                <p class="hero-subtitle">Search from top colleges across India. Compare fees, placements, rankings and more.</p>
+                <h1 class="hero-title animate-on-load">Find Your Perfect College</h1>
+                <p class="hero-subtitle animate-on-load delay-1">Search from top colleges across India. Compare fees, placements, rankings and more.</p>
+                <div class="hero-stats animate-on-load delay-2">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="500">0</div>
+                        <div class="stat-label">Top Colleges</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="1000">0</div>
+                        <div class="stat-label">Courses</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50000">0</div>
+                        <div class="stat-label">Students Helped</div>
+                    </div>
+                </div>
                 
                 <!-- Search & Filters -->
-                <div class="search-filters">
+                <div class="search-filters animate-on-load delay-3">
                     <div class="search-box">
                         <span class="search-icon">🔍</span>
                         <input type="text" id="searchInput" placeholder="Search colleges by name, location...">
@@ -79,22 +239,67 @@
         </div>
     </section>
 
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose CollegeFinder?</h2>
+                <p class="section-subtitle">Everything you need to make the right decision</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal" onclick="window.location.href='smart-match.html'" style="cursor: pointer;">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Matching</h3>
+                    <p>AI-powered recommendations based on your preferences and goals</p>
+                </div>
+                <div class="feature-card scroll-reveal delay-1" onclick="window.location.href='analytics.html'" style="cursor: pointer;">
+                    <div class="feature-icon">📊</div>
+                    <h3>Detailed Analytics</h3>
+                    <p>Comprehensive data on placements, rankings, and student reviews</p>
+                </div>
+                <div class="feature-card scroll-reveal delay-2" onclick="window.location.href='live-updates.html'" style="cursor: pointer;">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-time Updates</h3>
+                    <p>Latest information on admissions, cutoffs, and application dates</p>
+                </div>
+                <div class="feature-card scroll-reveal delay-3">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Free</h3>
+                    <p>Your data is protected and our service is completely free</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Results Section -->
     <section class="results">
         <div class="container">
             <div class="results-header">
                 <h2 id="resultsCount">Loading colleges...</h2>
+                <div class="view-toggle">
+                    <button class="toggle-btn active" data-view="grid" title="Grid View">⊞</button>
+                    <button class="toggle-btn" data-view="list" title="List View">☰</button>
+                </div>
             </div>
             <div id="collegeGrid" class="college-grid">
                 <!-- College cards will be inserted here by JavaScript -->
             </div>
             <div id="noResults" class="no-results" style="display: none;">
+                <div class="no-results-icon">🔍</div>
                 <p>No colleges found matching your criteria. Try adjusting your filters.</p>
             </div>
         </div>
     </section>
 
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" title="Back to top">
+        ↑
+    </button>
+
     <script src="data.js"></script>
     <script src="script.js"></script>
+    <script src="navbar.js"></script>
+    <script src="profile-component.js"></script>
+    <script src="chatbot.js"></script>
 </body>
 </html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Direct Test</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; margin-bottom: 20px; }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover { background: #45a049; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .log {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .log-entry { margin-bottom: 5px; }
+        .log-success { color: #4CAF50; }
+        .log-error { color: #f44336; }
+        .log-info { color: #2196F3; }
+        .config {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .config strong { color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 EmailJS Direct Test</h1>
+        
+        <div class="config">
+            <strong>Current Configuration:</strong><br>
+            Service ID: <code>service_lkib5kt</code><br>
+            Template ID: <code>template_ncsqvet</code><br>
+            Public Key: <code>ptiMq5wJUIS6GWXxP</code>
+        </div>
+
+        <div class="form-group">
+            <label for="testEmail">Your Email Address:</label>
+            <input type="email" id="testEmail" placeholder="your.email@gmail.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="testName">Your Name:</label>
+            <input type="text" id="testName" placeholder="Your Name" value="Test User">
+        </div>
+
+        <button onclick="testEmailSend()" id="sendBtn">Send Test Email</button>
+        <button onclick="checkTemplate()" id="checkBtn">Check Template Existence</button>
+        <button onclick="clearLog()">Clear Log</button>
+
+        <div class="log" id="logContainer">
+            <div class="log-entry log-info">Ready to test EmailJS configuration...</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        const SERVICE_ID = 'service_lkib5kt';
+        const TEMPLATE_ID = 'template_ncsqvet';
+        const PUBLIC_KEY = 'ptiMq5wJUIS6GWXxP';
+
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('logContainer');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.appendChild(entry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('logContainer').innerHTML = '';
+            log('Log cleared', 'info');
+        }
+
+        // Initialize EmailJS on load
+        window.addEventListener('load', () => {
+            try {
+                emailjs.init(PUBLIC_KEY);
+                log('✅ EmailJS initialized successfully', 'success');
+                log(`Public Key: ${PUBLIC_KEY}`, 'info');
+            } catch (error) {
+                log(`❌ EmailJS init failed: ${error.message}`, 'error');
+            }
+        });
+
+        async function testEmailSend() {
+            const email = document.getElementById('testEmail').value;
+            const name = document.getElementById('testName').value;
+            const sendBtn = document.getElementById('sendBtn');
+
+            if (!email) {
+                log('❌ Please enter your email address', 'error');
+                return;
+            }
+
+            sendBtn.disabled = true;
+            log('📧 Attempting to send email...', 'info');
+
+            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            log(`Generated code: ${verificationCode}`, 'info');
+
+            const templateParams = {
+                to_email: email,
+                to_name: name || 'there',
+                verification_code: verificationCode,
+                expiry_time: '5 minutes',
+                site_name: 'College Finder'
+            };
+
+            log('Template Parameters:', 'info');
+            log(JSON.stringify(templateParams, null, 2), 'info');
+
+            try {
+                log(`Sending to: ${SERVICE_ID}/${TEMPLATE_ID}`, 'info');
+                
+                const response = await emailjs.send(
+                    SERVICE_ID,
+                    TEMPLATE_ID,
+                    templateParams
+                );
+
+                log('✅ Email sent successfully!', 'success');
+                log(`Response status: ${response.status}`, 'success');
+                log(`Response text: ${response.text}`, 'success');
+                log(`📨 Check your inbox: ${email}`, 'success');
+                log(`🔑 Verification code: ${verificationCode}`, 'info');
+
+            } catch (error) {
+                log('❌ Email send failed!', 'error');
+                log(`Error status: ${error.status}`, 'error');
+                log(`Error text: ${error.text}`, 'error');
+                log(`Error message: ${error.message}`, 'error');
+                
+                // Detailed error analysis
+                if (error.status === 404) {
+                    log('⚠️ Template not found! Please create template_ncsqvet in EmailJS dashboard', 'error');
+                } else if (error.status === 400) {
+                    log('⚠️ Bad request - check template parameters', 'error');
+                } else if (error.status === 401 || error.status === 403) {
+                    log('⚠️ Authentication failed - check Public Key', 'error');
+                } else if (error.text && error.text.includes('Service')) {
+                    log('⚠️ Service ID invalid or not found', 'error');
+                }
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+
+        async function checkTemplate() {
+            const checkBtn = document.getElementById('checkBtn');
+            checkBtn.disabled = true;
+
+            log('🔍 Checking template existence...', 'info');
+            log(`Service: ${SERVICE_ID}`, 'info');
+            log(`Template: ${TEMPLATE_ID}`, 'info');
+
+            // Try to send with minimal data
+            try {
+                const response = await emailjs.send(
+                    SERVICE_ID,
+                    TEMPLATE_ID,
+                    { to_email: 'test@test.com' }
+                );
+                
+                log('✅ Template exists and is accessible!', 'success');
+                log('Note: Email not sent (invalid email)', 'info');
+            } catch (error) {
+                if (error.status === 404) {
+                    log('❌ Template does NOT exist!', 'error');
+                    log('👉 Go to https://dashboard.emailjs.com/admin/templates', 'info');
+                    log('👉 Create a new template with ID: template_ncsqvet', 'info');
+                } else if (error.status === 400 && error.text.includes('template')) {
+                    log('✅ Template exists!', 'success');
+                    log('(400 error is expected for test data)', 'info');
+                } else {
+                    log(`Error checking template: ${error.text}`, 'error');
+                }
+            } finally {
+                checkBtn.disabled = false;
+            }
+        }
+
+        // Test on Enter key
+        document.getElementById('testEmail').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                testEmailSend();
+            }
+        });
+    </script>
+</body>
+</html>

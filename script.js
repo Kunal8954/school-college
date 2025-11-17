@@ -7,11 +7,135 @@ let currentFilters = {
     rank: 'all'
 };
 
+let currentView = 'grid';
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
+    initializeAnimations();
+    initializeSlider();
     displayColleges(colleges);
+    setupScrollEffects();
 });
+
+// Initialize background slider
+function initializeSlider() {
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Change slide every 5 seconds
+    setInterval(nextSlide, 5000);
+}
+
+// Initialize animations
+function initializeAnimations() {
+    // Animate elements on load
+    const animateElements = document.querySelectorAll('.animate-on-load');
+    animateElements.forEach((el, index) => {
+        setTimeout(() => {
+            el.classList.add('active');
+        }, index * 100);
+    });
+
+    // Animate counters
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+        animateCounter(counter);
+    });
+}
+
+// Animate counter numbers
+function animateCounter(counter) {
+    const target = parseInt(counter.getAttribute('data-target'));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+
+    const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+            counter.textContent = Math.floor(current).toLocaleString();
+            requestAnimationFrame(updateCounter);
+        } else {
+            counter.textContent = target.toLocaleString();
+        }
+    };
+
+    // Start animation after a delay
+    setTimeout(() => {
+        updateCounter();
+    }, 500);
+}
+
+// Setup scroll effects
+function setupScrollEffects() {
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+
+        // Parallax effect for hero
+        const scrolled = window.scrollY;
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+        }
+    });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Lazy load images
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
 
 // Setup event listeners
 function setupEventListeners() {
@@ -38,6 +162,17 @@ function setupEventListeners() {
     document.getElementById('rankFilter').addEventListener('change', (e) => {
         currentFilters.rank = e.target.value;
         filterAndDisplay();
+    });
+
+    // View toggle buttons
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentView = this.dataset.view;
+            const grid = document.getElementById('collegeGrid');
+            grid.className = currentView === 'grid' ? 'college-grid' : 'college-list';
+        });
     });
 }
 
@@ -97,26 +232,38 @@ function displayColleges(collegesArray) {
 
     if (collegesArray.length === 0) {
         grid.style.display = 'none';
-        noResults.style.display = 'block';
+        noResults.style.display = 'flex';
         return;
     }
 
-    grid.style.display = 'grid';
+    grid.style.display = currentView === 'grid' ? 'grid' : 'block';
+    grid.className = currentView === 'grid' ? 'college-grid' : 'college-list';
     noResults.style.display = 'none';
 
-    grid.innerHTML = collegesArray.map(college => createCollegeCard(college)).join('');
+    grid.innerHTML = collegesArray.map((college, index) => createCollegeCard(college, index)).join('');
+    
+    // Add stagger animation to cards
+    const cards = grid.querySelectorAll('.college-card');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('card-visible');
+        }, index * 50);
+    });
 }
 
 // Create college card HTML
-function createCollegeCard(college) {
+function createCollegeCard(college, index) {
     const displayCourses = college.courses.slice(0, 3);
     const moreCourses = college.courses.length - 3;
 
     return `
-        <div class="college-card">
+        <div class="college-card" style="animation-delay: ${index * 0.05}s">
             <div class="college-image">
-                <img src="${college.image}" alt="${college.name}">
+                <img src="${college.image}" alt="${college.name}" loading="lazy">
                 <div class="rank-badge">Rank #${college.ranking}</div>
+                <div class="card-overlay">
+                    <a href="details.html?id=${college.id}" class="quick-view-btn">Quick View →</a>
+                </div>
             </div>
             <div class="college-content">
                 <h3 class="college-name">${college.name}</h3>

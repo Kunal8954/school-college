@@ -1,0 +1,26 @@
+{
+  "name": "college-finder-email-server",
+  "version": "1.0.0",
+  "description": "Email verification server for College Finder",
+  "main": "email-server.js",
+  "scripts": {
+    "start": "node email-server.js",
+    "dev": "nodemon email-server.js"
+  },
+  "keywords": [
+    "email",
+    "verification",
+    "nodemailer"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "nodemailer": "^6.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

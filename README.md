@@ -1,4 +1,52 @@
-# Welcome to your Lovable project
+# College Finder Platform
+
+A comprehensive college search and information platform with advanced features for students.
+
+## 🚀 Recent Updates
+
+### ✨ Live Updates Portal - API Integration Complete!
+
+The Live Updates Portal now supports **real-time API integration** while maintaining full functionality in demo mode.
+
+**Quick Links:**
+- 📖 **[API Quick Start](API_QUICK_START.md)** - 2-minute setup guide
+- 📚 **[Full API Guide](API_INTEGRATION_GUIDE.md)** - Complete API specifications  
+- ✅ **[Integration Status](INTEGRATION_STATUS.md)** - What's built and how it works
+- 💻 **[Backend Examples](backend-integration-example.js)** - Server implementation code
+
+**Current Status:** Demo Mode (fully functional with mock data)  
+**To Enable Live API:** See [API_QUICK_START.md](API_QUICK_START.md)
+
+---
+
+## Features
+
+### 1. **Smart College Matching**
+- Intelligent algorithm matches students with colleges
+- Filter by location, program, fees, placements
+- Compare multiple colleges side-by-side
+
+### 2. **Analytics Dashboard** 
+- Dynamic data visualization with Chart.js
+- 7 interactive charts (placement trends, top companies, program distribution, etc.)
+- Real-time filtering by year, program, and region
+- Animated statistics cards
+
+### 3. **Live Updates Portal** ⭐ NEW with API Support
+- Real-time updates for admissions, cutoffs, and deadlines
+- Dual-mode: Mock data (demo) or Real API (production)
+- WebSocket support for instant notifications
+- Countdown timers for deadlines
+- Advanced search and filtering
+- Auto-refresh every 30 seconds
+- Save, share, and export updates
+- 15+ smooth animations
+
+### 4. **College Comparison**
+- Side-by-side comparison of multiple colleges
+- Comprehensive metrics and ratings
+
+---
 
 ## Project info
 
@@ -59,6 +107,8 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Chart.js (for analytics)
+- WebSocket API (for real-time updates)
 
 ## How can I deploy this project?
 

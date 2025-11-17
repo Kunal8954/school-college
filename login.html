@@ -19,21 +19,59 @@
                     <label for="email">Email</label>
                     <div class="input-with-icon">
                         <span class="input-icon">📧</span>
-                        <input type="email" id="email" placeholder="your.email@example.com" required>
+                        <input type="email" id="email" placeholder="your.email@example.com" required autocomplete="email">
                     </div>
                     <span class="error-message" id="emailError"></span>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <div class="input-with-icon">
+                    <div class="input-with-icon password-input">
                         <span class="input-icon">🔒</span>
-                        <input type="password" id="password" placeholder="••••••••" required>
+                        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" id="togglePassword" aria-label="Toggle password visibility">
+                            <span class="eye-icon">👁️</span>
+                        </button>
                     </div>
                     <span class="error-message" id="passwordError"></span>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Sign In</button>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    <span class="btn-text">Sign In</span>
+                    <span class="btn-loader" style="display: none;">
+                        <span class="spinner"></span>
+                    </span>
+                </button>
+                
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google-btn">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
+                            <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.259c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9.003 18z" fill="#34A853"/>
+                            <path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+                            <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.003 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29c.708-2.127 2.692-3.71 5.039-3.71z" fill="#EA4335"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn github-btn">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                            <path d="M9 0C4.03 0 0 4.03 0 9c0 3.98 2.58 7.35 6.15 8.54.45.08.61-.19.61-.43v-1.5c-2.5.54-3.03-1.2-3.03-1.2-.41-1.03-1-1.3-1-1.3-.82-.56.06-.55.06-.55.9.06 1.38.93 1.38.93.8 1.38 2.1.98 2.62.75.08-.58.31-.98.57-1.2-2-.23-4.1-1-4.1-4.45 0-.98.35-1.79.92-2.42-.09-.23-.4-1.14.09-2.38 0 0 .75-.24 2.45.92a8.5 8.5 0 0 1 4.46 0c1.7-1.16 2.45-.92 2.45-.92.49 1.24.18 2.15.09 2.38.57.63.92 1.44.92 2.42 0 3.46-2.1 4.22-4.11 4.44.32.28.61.83.61 1.67v2.47c0 .24.16.52.62.43C15.42 16.35 18 12.98 18 9c0-4.97-4.03-9-9-9z"/>
+                        </svg>
+                        GitHub
+                    </button>
+                </div>
             </form>
             
             <div class="auth-footer">

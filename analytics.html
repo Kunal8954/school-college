@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - CollegeFinder</title>
+    <meta name="description" content="Comprehensive analytics on placements, rankings, and student reviews">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="analytics.css">
+    <link rel="stylesheet" href="profile-component.css">
+    <link rel="stylesheet" href="chatbot.css">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+        <div class="nav-container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🎓</div>
+                    <span class="logo-text">CollegeFinder</span>
+                </a>
+                
+                <!-- Search Bar -->
+                <div class="nav-search">
+                    <input type="text" class="search-input" placeholder="Search colleges...">
+                    <button class="search-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor"/>
+                            <path d="M21 21l-4.35-4.35" stroke="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="smart-match.html" class="nav-link">Smart Match</a>
+                    <a href="analytics.html" class="nav-link active">Analytics</a>
+                    <a href="live-updates.html" class="nav-link">⚡ Live Updates</a>
+                    <a href="compare.html" class="nav-link">Compare</a>
+                    <a href="cutoff-predictor.html" class="nav-link">Cutoff Predictor</a>
+                </div>
+                
+                <!-- Notification Button -->
+                <button class="notification-btn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M18 8A6 6 0 106 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor"/>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <!-- Auth Buttons / Profile -->
+                <div class="nav-auth" id="navAuth">
+                    <a href="login.html" class="btn-login">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span>Login</span>
+                    </a>
+                    <a href="signup.html" class="btn-signup">Sign Up</a>
+                </div>
+                
+                <!-- Profile Dropdown (Hidden by default) -->
+                <div class="profile-container" id="profileContainer" style="display: none;">
+                    <button class="profile-trigger">
+                        <div class="profile-avatar">
+                            <img src="" alt="Profile" id="profileAvatar" style="display: none;">
+                            <div class="avatar-placeholder" id="avatarPlaceholder">
+                                <span id="avatarInitials">U</span>
+                            </div>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="profile-info">
+                            <span class="profile-name" id="profileName">User</span>
+                            <svg viewBox="0 0 24 24" fill="none" class="dropdown-arrow">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </button>
+                    
+                    <div class="profile-dropdown">
+                        <div class="dropdown-header">
+                            <div class="user-avatar-large">
+                                <img src="" alt="Profile" id="dropdownAvatar" style="display: none;">
+                                <div class="avatar-placeholder-large" id="avatarPlaceholderLarge">
+                                    <span id="avatarInitialsLarge">U</span>
+                                </div>
+                            </div>
+                            <div class="user-details">
+                                <h4 id="dropdownName">User Name</h4>
+                                <p id="dropdownEmail">user@example.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M17 21v-8H7v8M7 3v5h8" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Saved Colleges</span>
+                                <span class="badge">5</span>
+                            </a>
+                            <a href="cutoff-predictor.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>My Predictions</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Settings</span>
+                            </a>
+                            <a href="live-updates.html" class="dropdown-item">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M18 8A6 6 0 106 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Notifications</span>
+                                <span class="badge danger">3</span>
+                            </a>
+                        </div>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <div class="dropdown-footer">
+                            <button class="dropdown-item logout-btn" id="logoutBtn">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay"></div>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="analytics-icon-wrapper">
+                    <div class="analytics-icon">
+                        <div class="icon-layer layer-1">📊</div>
+                        <div class="icon-layer layer-2">📈</div>
+                        <div class="icon-layer layer-3">📉</div>
+                    </div>
+                    <div class="icon-rings">
+                        <div class="ring ring-1"></div>
+                        <div class="ring ring-2"></div>
+                        <div class="ring ring-3"></div>
+                    </div>
+                </div>
+                <h1 class="dashboard-title">Analytics Dashboard</h1>
+                <p class="dashboard-subtitle">Comprehensive insights into placements, rankings, and student feedback</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-bar">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="yearFilter">📅 Year</label>
+                    <select id="yearFilter" class="filter-select-dash">
+                        <option value="2024" selected>2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="programFilter">🎓 Program</label>
+                    <select id="programFilter" class="filter-select-dash">
+                        <option value="all">All Programs</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Management">Management</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Arts & Sciences">Arts & Sciences</option>
+                        <option value="Law">Law</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="regionFilter">📍 Region</label>
+                    <select id="regionFilter" class="filter-select-dash">
+                        <option value="all">All Regions</option>
+                        <option value="North">North India</option>
+                        <option value="South">South India</option>
+                        <option value="East">East India</option>
+                        <option value="West">West India</option>
+                        <option value="Central">Central India</option>
+                    </select>
+                </div>
+
+                <button class="btn-reset-filters" onclick="resetFilters()">
+                    🔄 Reset Filters
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="stats-overview">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card loading">
+                    <div class="stat-icon blue">👥</div>
+                    <div class="stat-content">
+                        <div class="stat-value" data-target="45680">0</div>
+                        <div class="stat-label">Students Placed</div>
+                        <div class="stat-change positive">
+                            <span class="arrow">↑</span> 12.5% from last year
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card loading">
+                    <div class="stat-icon green">💼</div>
+                    <div class="stat-content">
+                        <div class="stat-value">₹<span data-target="12.5">0</span>L</div>
+                        <div class="stat-label">Avg. Package</div>
+                        <div class="stat-change positive">
+                            <span class="arrow">↑</span> 8.3% from last year
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card loading">
+                    <div class="stat-icon orange">🏆</div>
+                    <div class="stat-content">
+                        <div class="stat-value" data-target="500">0</div>
+                        <div class="stat-label">Top Colleges</div>
+                        <div class="stat-change neutral">
+                            <span class="arrow">→</span> Updated this month
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card loading">
+                    <div class="stat-icon purple">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value"><span data-target="4.6">0</span>/5</div>
+                        <div class="stat-label">Avg. Rating</div>
+                        <div class="stat-change positive">
+                            <span class="arrow">↑</span> 0.3 from last year
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts-section">
+        <div class="container">
+            <!-- Row 1: Placement Trends & Top Companies -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Placement Trends (2020-2024)</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item"><span class="dot blue"></span>Students Placed</span>
+                            <span class="legend-item"><span class="dot green"></span>Avg Package (₹L)</span>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="placementTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Top Recruiting Companies</h3>
+                        <span class="chart-badge">2024</span>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="topCompaniesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: College Rankings & Program Distribution -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Top 10 College Rankings</h3>
+                        <div class="view-toggle-small">
+                            <button class="toggle-small active" data-view="ranking">By Rank</button>
+                            <button class="toggle-small" data-view="rating">By Rating</button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="collegeRankingsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Program Distribution</h3>
+                        <span class="chart-badge">Active Students</span>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="programDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Salary Range & Regional Analysis -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Salary Package Distribution</h3>
+                        <span class="chart-badge">In Lakhs (₹)</span>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="salaryDistributionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Regional Performance Analysis</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item"><span class="dot blue"></span>Placements</span>
+                            <span class="legend-item"><span class="dot green"></span>Avg Salary</span>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="regionalAnalysisChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 4: Student Reviews & Satisfaction -->
+            <div class="charts-row">
+                <div class="chart-container full-width">
+                    <div class="chart-header">
+                        <h3>Student Satisfaction Metrics</h3>
+                        <div class="satisfaction-filters">
+                            <button class="metric-btn active" data-metric="overall">Overall</button>
+                            <button class="metric-btn" data-metric="faculty">Faculty</button>
+                            <button class="metric-btn" data-metric="infrastructure">Infrastructure</button>
+                            <button class="metric-btn" data-metric="placement">Placement</button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="satisfactionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Tables Section -->
+    <section class="tables-section">
+        <div class="container">
+            <div class="tables-row">
+                <!-- Top Performers Table -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>🏆 Top Performing Colleges</h3>
+                        <button class="btn-export" onclick="exportTable('performers')">
+                            📥 Export
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table" id="topPerformersTable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>College</th>
+                                    <th>Placement %</th>
+                                    <th>Avg Package</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be inserted by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Reviews Table -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>💬 Recent Student Reviews</h3>
+                        <button class="btn-export" onclick="exportTable('reviews')">
+                            📥 Export
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table" id="reviewsTable">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>College</th>
+                                    <th>Rating</th>
+                                    <th>Review</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be inserted by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section class="insights-section">
+        <div class="container">
+            <h2 class="section-title-insights">📌 Key Insights</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon">📈</div>
+                    <h4>Placement Growth</h4>
+                    <p>Engineering placements increased by 15% in 2024, with IT sector leading the hiring</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">💰</div>
+                    <h4>Salary Trends</h4>
+                    <p>Average package crossed ₹12.5L mark, highest growth in AI/ML roles at 25%</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">🌟</div>
+                    <h4>Student Satisfaction</h4>
+                    <p>Overall satisfaction rating improved to 4.6/5, with infrastructure seeing major upgrades</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon">🎯</div>
+                    <h4>Top Recruiters</h4>
+                    <p>Google, Microsoft, and Amazon remain top recruiters with 3000+ combined placements</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader-container">
+            <div class="loader-chart">
+                <div class="bar" style="--i: 1"></div>
+                <div class="bar" style="--i: 2"></div>
+                <div class="bar" style="--i: 3"></div>
+                <div class="bar" style="--i: 4"></div>
+                <div class="bar" style="--i: 5"></div>
+            </div>
+            <p class="loader-text">Loading Analytics...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="data.js"></script>
+    <script src="analytics.js"></script>
+    <script src="navbar.js"></script>
+    <script src="profile-component.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html>

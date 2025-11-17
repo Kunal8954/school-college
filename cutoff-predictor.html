@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cut-Off Predictor - College Finder | Predict Your College Admission</title>
+    <meta name="description" content="Use our AI-powered cut-off predictor to estimate your college admission chances. Get personalized predictions for JEE, NEET, CUET, and more.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="cutoff-predictor.css">
+    <link rel="stylesheet" href="profile-component.css">
+    <link rel="stylesheet" href="chatbot.css">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+        <div class="nav-container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🎓</div>
+                    <span class="logo-text">CollegeFinder</span>
+                </a>
+                
+                <!-- Search Bar -->
+                <div class="nav-search">
+                    <input type="text" class="search-input" placeholder="Search colleges...">
+                    <button class="search-btn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor"/>
+                            <path d="M21 21l-4.35-4.35" stroke="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="smart-match.html" class="nav-link">Smart Match</a>
+                    <a href="analytics.html" class="nav-link">Analytics</a>
+                    <a href="live-updates.html" class="nav-link">⚡ Live Updates</a>
+                    <a href="compare.html" class="nav-link">Compare</a>
+                    <a href="cutoff-predictor.html" class="nav-link active">Cutoff Predictor</a>
+                </div>
+                
+                <!-- Notification Button -->
+                <button class="notification-btn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M18 8A6 6 0 106 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor"/>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+            
+            <!-- Auth Buttons / Profile -->
+            <div class="nav-auth" id="navAuth">
+                <a href="login.html" class="btn-login" id="loginBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Login
+                </a>
+                <a href="signup.html" class="btn-signup" id="signupBtn">Sign Up</a>
+            </div>
+            
+            <!-- Profile Dropdown (Hidden by default) -->
+            <div class="profile-container" id="profileContainer" style="display: none;">
+                <button class="profile-trigger" id="profileTrigger">
+                    <div class="profile-avatar">
+                        <img src="" alt="Profile" id="profileAvatar" style="display: none;">
+                        <div class="avatar-placeholder" id="avatarPlaceholder">
+                            <span id="avatarInitials">U</span>
+                        </div>
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="profile-info">
+                        <span class="profile-name" id="profileName">User</span>
+                        <svg viewBox="0 0 24 24" fill="none" class="dropdown-arrow">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </button>
+                
+                <div class="profile-dropdown" id="profileDropdown">
+                    <div class="dropdown-header">
+                        <div class="user-avatar-large">
+                            <img src="" alt="Profile" id="dropdownAvatar" style="display: none;">
+                            <div class="avatar-placeholder-large" id="avatarPlaceholderLarge">
+                                <span id="avatarInitialsLarge">U</span>
+                            </div>
+                        </div>
+                        <div class="user-details">
+                            <h4 id="dropdownName">User Name</h4>
+                            <p id="dropdownEmail">user@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown-divider"></div>
+                    
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M17 21v-8H7v8M7 3v5h8" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>Saved Colleges</span>
+                            <span class="badge">12</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>My Predictions</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M18 8A6 6 0 106 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>Notifications</span>
+                            <span class="badge danger">3</span>
+                        </a>
+                    </div>
+                    
+                    <div class="dropdown-divider"></div>
+                    
+                    <div class="dropdown-footer">
+                        <button class="dropdown-item logout-btn" id="logoutBtn">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="animated-particles"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-icon">
+                <svg viewBox="0 0 200 200" class="prediction-icon">
+                    <defs>
+                        <linearGradient id="capGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3b82f6"/>
+                            <stop offset="100%" style="stop-color:#8b5cf6"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Graduation Cap -->
+                    <path d="M100 50L30 80v40l70 35 70-35V80z" fill="url(#capGradient)" opacity="0.9"/>
+                    <path d="M100 50L30 80l70 35 70-35z" fill="url(#capGradient)"/>
+                    <rect x="95" y="110" width="10" height="40" fill="#3b82f6"/>
+                    <circle cx="100" cy="155" r="8" fill="#fbbf24"/>
+                    <!-- AI Brain Icons -->
+                    <circle cx="50" cy="100" r="4" fill="#10b981" class="brain-node"/>
+                    <circle cx="150" cy="100" r="4" fill="#10b981" class="brain-node"/>
+                    <circle cx="100" cy="130" r="4" fill="#10b981" class="brain-node"/>
+                    <line x1="50" y1="100" x2="100" y2="130" stroke="#10b981" stroke-width="2" opacity="0.5"/>
+                    <line x1="150" y1="100" x2="100" y2="130" stroke="#10b981" stroke-width="2" opacity="0.5"/>
+                </svg>
+                <div class="icon-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">AI-Powered</span>
+                <span class="title-line gradient-text">Cut-Off Predictor</span>
+            </h1>
+            <p class="hero-subtitle">
+                Get instant predictions for college admissions based on your exam scores. 
+                Our advanced AI analyzes lakhs of data points to estimate your chances accurately.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2000+</span>
+                    <span class="stat-label">Colleges</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5L+</span>
+                    <span class="stat-label">Predictions</span>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Start Prediction</span>
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Banner -->
+    <div class="trust-banner">
+        <div class="trust-container">
+            <div class="trust-badge">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L4 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-8-4z" fill="#10b981"/>
+                    <path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2"/>
+                </svg>
+                <span>Your data is secure & encrypted</span>
+            </div>
+            <div class="trust-badge">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" fill="#3b82f6"/>
+                    <path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2"/>
+                </svg>
+                <span>AI-powered predictions</span>
+            </div>
+            <div class="trust-badge">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fbbf24"/>
+                </svg>
+                <span>Based on verified data</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prediction Form Section -->
+    <section class="form-section" id="predictor-form">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Enter Your Details</h2>
+                <p class="section-subtitle">Fill in your academic information to get personalized predictions</p>
+            </div>
+
+            <div class="form-wrapper">
+                <form id="predictionForm" class="prediction-form">
+                    <!-- Exam Type Selection -->
+                    <div class="form-group exam-selection">
+                        <label class="form-label">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" stroke="#3b82f6" stroke-width="2"/>
+                                <path d="M9 11l3 3 5-5" stroke="#3b82f6" stroke-width="2"/>
+                            </svg>
+                            Select Exam Type
+                            <span class="tooltip-trigger" data-tooltip="Choose the entrance exam you appeared for">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="#64748b" stroke-width="2"/>
+                                    <text x="12" y="16" text-anchor="middle" fill="#64748b" font-size="14" font-weight="bold">?</text>
+                                </svg>
+                            </span>
+                        </label>
+                        <div class="exam-cards">
+                            <div class="exam-card" data-exam="jee-main">
+                                <div class="exam-icon">
+                                    <svg viewBox="0 0 64 64" fill="none">
+                                        <circle cx="32" cy="32" r="28" fill="#dbeafe"/>
+                                        <text x="32" y="40" text-anchor="middle" fill="#3b82f6" font-size="20" font-weight="bold">JEE</text>
+                                    </svg>
+                                </div>
+                                <span class="exam-name">JEE Main</span>
+                                <span class="exam-desc">Engineering</span>
+                            </div>
+                            <div class="exam-card" data-exam="jee-advanced">
+                                <div class="exam-icon">
+                                    <svg viewBox="0 0 64 64" fill="none">
+                                        <circle cx="32" cy="32" r="28" fill="#ddd6fe"/>
+                                        <text x="32" y="40" text-anchor="middle" fill="#8b5cf6" font-size="18" font-weight="bold">JEE-A</text>
+                                    </svg>
+                                </div>
+                                <span class="exam-name">JEE Advanced</span>
+                                <span class="exam-desc">IIT/NIT</span>
+                            </div>
+                            <div class="exam-card" data-exam="neet">
+                                <div class="exam-icon">
+                                    <svg viewBox="0 0 64 64" fill="none">
+                                        <circle cx="32" cy="32" r="28" fill="#d1fae5"/>
+                                        <text x="32" y="40" text-anchor="middle" fill="#10b981" font-size="18" font-weight="bold">NEET</text>
+                                    </svg>
+                                </div>
+                                <span class="exam-name">NEET</span>
+                                <span class="exam-desc">Medical</span>
+                            </div>
+                            <div class="exam-card" data-exam="cuet">
+                                <div class="exam-icon">
+                                    <svg viewBox="0 0 64 64" fill="none">
+                                        <circle cx="32" cy="32" r="28" fill="#fef3c7"/>
+                                        <text x="32" y="40" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="bold">CUET</text>
+                                    </svg>
+                                </div>
+                                <span class="exam-name">CUET</span>
+                                <span class="exam-desc">Central Univ</span>
+                            </div>
+                            <div class="exam-card" data-exam="cat">
+                                <div class="exam-icon">
+                                    <svg viewBox="0 0 64 64" fill="none">
+                                        <circle cx="32" cy="32" r="28" fill="#fce7f3"/>
+                                        <text x="32" y="40" text-anchor="middle" fill="#ec4899" font-size="20" font-weight="bold">CAT</text>
+                                    </svg>
+                                </div>
+                                <span class="exam-name">CAT</span>
+                                <span class="exam-desc">MBA</span>
+                            </div>
+                            <div class="exam-card" data-exam="gate">
+                                <div class="exam-icon">
+                                    <svg viewBox="0 0 64 64" fill="none">
+                                        <circle cx="32" cy="32" r="28" fill="#e0f2fe"/>
+                                        <text x="32" y="40" text-anchor="middle" fill="#06b6d4" font-size="18" font-weight="bold">GATE</text>
+                                    </svg>
+                                </div>
+                                <span class="exam-name">GATE</span>
+                                <span class="exam-desc">M.Tech</span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="examType" id="examType" required>
+                    </div>
+
+                    <!-- Score and Rank Inputs -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#3b82f6" stroke-width="2"/>
+                                </svg>
+                                Your Score
+                                <span class="required">*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="score" name="score" placeholder="e.g., 250" min="0" max="720" required>
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path d="M9 11l3 3 8-8" stroke="#3b82f6" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="helper-text">Enter your total marks</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="#3b82f6" stroke-width="2"/>
+                                    <text x="12" y="16" text-anchor="middle" fill="#3b82f6" font-size="12" font-weight="bold">#</text>
+                                </svg>
+                                Your Rank
+                                <span class="tooltip-trigger" data-tooltip="Optional: Enter if you know your rank">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <circle cx="12" cy="12" r="10" stroke="#64748b" stroke-width="2"/>
+                                        <text x="12" y="16" text-anchor="middle" fill="#64748b" font-size="14" font-weight="bold">?</text>
+                                    </svg>
+                                </span>
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="number" id="rank" name="rank" placeholder="e.g., 12500" min="1">
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fbbf24"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="helper-text">Optional field</span>
+                        </div>
+                    </div>
+
+                    <!-- Category and State -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke="#3b82f6" stroke-width="2"/>
+                                </svg>
+                                Category
+                                <span class="required">*</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="category" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="general">General</option>
+                                    <option value="ews">EWS</option>
+                                    <option value="obc">OBC-NCL</option>
+                                    <option value="sc">SC</option>
+                                    <option value="st">ST</option>
+                                    <option value="pwd">PwD</option>
+                                </select>
+                                <svg viewBox="0 0 24 24" fill="none" class="select-arrow">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#3b82f6" stroke-width="2"/>
+                                    <circle cx="12" cy="9" r="2.5" stroke="#3b82f6" stroke-width="2"/>
+                                </svg>
+                                State Preference
+                                <span class="required">*</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="state" name="state" required>
+                                    <option value="">Select State</option>
+                                    <option value="all">All India</option>
+                                    <option value="delhi">Delhi</option>
+                                    <option value="maharashtra">Maharashtra</option>
+                                    <option value="karnataka">Karnataka</option>
+                                    <option value="tamil-nadu">Tamil Nadu</option>
+                                    <option value="telangana">Telangana</option>
+                                    <option value="uttar-pradesh">Uttar Pradesh</option>
+                                    <option value="west-bengal">West Bengal</option>
+                                    <option value="gujarat">Gujarat</option>
+                                    <option value="rajasthan">Rajasthan</option>
+                                    <option value="madhya-pradesh">Madhya Pradesh</option>
+                                </select>
+                                <svg viewBox="0 0 24 24" fill="none" class="select-arrow">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gender (Optional) -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="8" r="4" stroke="#3b82f6" stroke-width="2"/>
+                                <path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="#3b82f6" stroke-width="2"/>
+                            </svg>
+                            Gender (for quota-based predictions)
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="male">
+                                <span class="radio-custom"></span>
+                                <span>Male</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="female">
+                                <span class="radio-custom"></span>
+                                <span>Female</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="other">
+                                <span class="radio-custom"></span>
+                                <span>Other</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-predict" id="predictBtn">
+                            <span class="btn-text">Predict My Colleges</span>
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
+                                </svg>
+                            </span>
+                            <div class="btn-loader">
+                                <div class="loader-spinner"></div>
+                            </div>
+                        </button>
+                        <button type="reset" class="btn-reset">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M4 4v5h5M20 20v-5h-5" stroke="currentColor" stroke-width="2"/>
+                                <path d="M4 9a9 9 0 019-9 9 9 0 019 9M20 15a9 9 0 01-9 9 9 9 0 01-9-9" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            Reset
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Info Sidebar -->
+                <div class="info-sidebar">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" fill="#dbeafe"/>
+                                <path d="M12 16v-4M12 8h.01" stroke="#3b82f6" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3>How it Works</h3>
+                        <ul>
+                            <li>Select your exam type</li>
+                            <li>Enter your score/rank</li>
+                            <li>Choose category & preferences</li>
+                            <li>Get instant AI predictions</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="#fbbf24"/>
+                            </svg>
+                        </div>
+                        <h3>Quick Tips</h3>
+                        <ul>
+                            <li>Enter accurate scores for better predictions</li>
+                            <li>Check multiple state options</li>
+                            <li>Consider branch preferences</li>
+                            <li>Review previous year trends</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section" id="results-section" style="display: none;">
+        <div class="section-container">
+            <div class="results-header">
+                <h2 class="section-title">Your Predicted Colleges</h2>
+                <div class="results-actions">
+                    <button class="btn-filter" id="filterBtn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M3 4h18M7 12h10M10 20h4" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        Filters
+                    </button>
+                    <button class="btn-export" id="exportBtn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        Export
+                    </button>
+                    <button class="btn-new-prediction" id="newPredictionBtn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        New Prediction
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Summary -->
+            <div class="results-summary">
+                <div class="summary-card">
+                    <div class="summary-icon high">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#10b981"/>
+                        </svg>
+                    </div>
+                    <div class="summary-content">
+                        <span class="summary-number" id="highChanceCount">0</span>
+                        <span class="summary-label">High Chance</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon moderate">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" fill="#fbbf24"/>
+                            <path d="M12 8v4l3 3" stroke="#fff" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="summary-content">
+                        <span class="summary-number" id="moderateChanceCount">0</span>
+                        <span class="summary-label">Moderate Chance</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon low">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" fill="#f59e0b"/>
+                            <path d="M12 8v4M12 16h.01" stroke="#fff" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="summary-content">
+                        <span class="summary-number" id="lowChanceCount">0</span>
+                        <span class="summary-label">Low Chance</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Panel -->
+            <div class="filter-panel" id="filterPanel" style="display: none;">
+                <div class="filter-header">
+                    <h3>Refine Results</h3>
+                    <button class="filter-close" id="filterClose">×</button>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <label>Branch Preference</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="cse" checked> Computer Science</label>
+                            <label><input type="checkbox" value="ece" checked> Electronics</label>
+                            <label><input type="checkbox" value="mechanical" checked> Mechanical</label>
+                            <label><input type="checkbox" value="civil" checked> Civil</label>
+                            <label><input type="checkbox" value="it" checked> Information Technology</label>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>College Type</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="government" checked> Government</label>
+                            <label><input type="checkbox" value="private" checked> Private</label>
+                            <label><input type="checkbox" value="deemed" checked> Deemed</label>
+                        </div>
+                    </div>
+                    <button class="btn-apply-filter" id="applyFilterBtn">Apply Filters</button>
+                </div>
+            </div>
+
+            <!-- Results Grid -->
+            <div class="results-grid" id="resultsGrid">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more-container">
+                <button class="btn-load-more" id="loadMoreBtn">
+                    <span>Load More Colleges</span>
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section class="analytics-section" id="analytics-section" style="display: none;">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Trend Analysis & Insights</h2>
+                <p class="section-subtitle">Historical data and predictions based on previous years</p>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Cut-Off Trends</h3>
+                        <select class="chart-select">
+                            <option>Last 5 Years</option>
+                            <option>Last 3 Years</option>
+                            <option>Last Year</option>
+                        </select>
+                    </div>
+                    <canvas id="trendChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Category-wise Distribution</h3>
+                    </div>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="insights-card">
+                <h3>Key Insights</h3>
+                <ul id="insightsList">
+                    <li>Based on your score, you have a <strong>high chance</strong> of admission in top-tier colleges.</li>
+                    <li>Cut-offs have <strong>increased by 3%</strong> compared to last year.</li>
+                    <li>Consider applying to <strong>NITs in your home state</strong> for better chances.</li>
+                </ul>
+            </div>
+
+            <div class="cta-banner">
+                <div class="cta-content">
+                    <h3>Get Real-Time Cut-Off Updates</h3>
+                    <p>Stay notified about changing cut-offs and admission deadlines</p>
+                    <a href="live-updates.html" class="btn-cta">
+                        <span>Subscribe to Updates</span>
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="cta-visual">
+                    <svg viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" fill="#dbeafe"/>
+                        <path d="M100 50v50l30 30" stroke="#3b82f6" stroke-width="4"/>
+                        <circle cx="100" cy="100" r="8" fill="#3b82f6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tooltips -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Understanding Your Predictions</h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h4>Admission Probability</h4>
+                    <ul>
+                        <li><span class="badge high">High</span> 80-100% chance based on last year's data</li>
+                        <li><span class="badge moderate">Moderate</span> 50-80% chance of admission</li>
+                        <li><span class="badge low">Low</span> Below 50% chance, consider as backup</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h4>How We Calculate</h4>
+                    <p>Our AI analyzes:</p>
+                    <ul>
+                        <li>Previous 5 years cut-off data</li>
+                        <li>Category-wise trends</li>
+                        <li>State quota allocations</li>
+                        <li>Seat matrix changes</li>
+                        <li>Current year difficulty level</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-action" id="modalGotIt">Got It!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="navbar.js"></script>
+    <script src="profile-component.js"></script>
+    <script src="cutoff-predictor.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html>
